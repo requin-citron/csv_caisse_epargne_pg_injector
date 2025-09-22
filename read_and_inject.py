@@ -45,7 +45,7 @@ def read_csv_as_dicts(file_path):
             data.append(convert_dict_to_transaction( dict(row) ))
     return data
 
-for transaction in read_csv_as_dicts('./csv/04197035507_11072023_11092025.csv'):
+for transaction in read_csv_as_dicts('./csv/bank.csv'):
     flag = insert_transaction(transaction)
 
     if flag == False:
