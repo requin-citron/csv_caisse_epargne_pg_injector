@@ -1,3 +1,4 @@
+import argparse
 from db_connect import insert_transaction
 import csv
 
@@ -45,8 +46,13 @@ def read_csv_as_dicts(file_path):
             data.append(convert_dict_to_transaction( dict(row) ))
     return data
 
-for transaction in read_csv_as_dicts('./csv/bank.csv'):
-    flag = insert_transaction(transaction)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Inject CSV data into the database.")
+    parser.add_argument('csv_file', type=str, help='The path to the CSV file to inject.')
+    args = parser.parse_args()
 
-    if flag == False:
-        print("Erreur lors de l'insertion de la transaction :", transaction)
+    for transaction in read_csv_as_dicts(args.csv_file):
+        flag = insert_transaction(transaction)
+
+        if flag == False:
+            print("Erreur lors de l'insertion de la transaction :", transaction)
